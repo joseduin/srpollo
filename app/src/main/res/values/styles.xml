@@ -1,0 +1,92 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--
+       <item name="homeAsUpIndicator">@drawable/ic_chevron_left</item>
+       -->
+   </style>
+
+    <style name="colorDeLetra">
+        <item name="android:textColor">@color/colorBlanco </item>
+    </style>
+
+    <style name="colorSpiner">
+        <item name="android:backgroundTint">@color/colorBlanco</item>
+    </style>
+
+    <style name="colorEditText">
+        <item name="android:backgroundTint">@color/colorBlanco</item>
+    </style>
+
+   <style name="botonPrincipal">
+       <item name="android:background">@color/colorPrimaryDark</item>
+       <item name="android:textColor">@color/colorNube</item>
+   </style>
+
+   <style name="botonSecundario">
+       <item name="android:background">@color/colorAccent</item>
+       <item name="android:textColor">@color/colorNube</item>
+   </style>
+
+   <style name="textMultiLine">
+       <item name="android:lines">8</item>
+       <item name="android:minLines">6</item>
+       <item name="android:scrollbars">vertical</item>
+   </style>
+
+   <style name="botonActivoFiltro">
+       <item name="android:background">@color/colorPrimaryDark</item>
+       <item name="android:textColor">@color/colorNube</item>
+       <item name="android:layout_gravity">fill</item>
+   </style>
+   <style name="botonInactivoFiltro">
+       <item name="android:background">@color/colorNube</item>
+       <item name="android:textColor">@color/colorNegro</item>
+       <item name="android:layout_gravity">fill</item>
+   </style>
+
+   <style name="titulo">
+       <item name="android:textSize">@dimen/tituloLogin</item>
+       <item name="android:textColor">@color/colorNegro</item>
+       <item name="android:gravity">center_horizontal</item>
+   </style>
+
+   <style name="subtitulo">
+       <item name="android:textSize">@dimen/subtitulo</item>
+       <item name="android:textColor">@color/colorNegro</item>
+       <item name="android:gravity">left</item>
+   </style>
+
+   <style name="precioServicio">
+       <item name="android:paddingBottom">5dp</item>
+       <item name="android:paddingTop">5dp</item>
+       <item name="android:paddingLeft">10dp</item>
+       <item name="android:paddingRight">10dp</item>
+       <item name="android:background">@color/colorPrimaryDark</item>
+       <item name="android:textColor">@color/colorBlanco</item>
+   </style>
+
+   <style name="descuento">
+       <item name="android:paddingBottom">5dp</item>
+       <item name="android:paddingTop">5dp</item>
+       <item name="android:paddingLeft">10dp</item>
+       <item name="android:paddingRight">10dp</item>
+       <item name="android:background">@color/colorAccent</item>
+       <item name="android:textColor">@color/colorBlanco</item>
+   </style>
+
+   <style name="noAnimTheme" parent="Theme.AppCompat.Light.NoActionBar">
+       <item name="android:windowAnimationStyle">@null</item>
+   </style>
+
+   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+</resources>
