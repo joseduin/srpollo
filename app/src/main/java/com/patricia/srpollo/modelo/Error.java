@@ -6,7 +6,7 @@ package com.patricia.srpollo.modelo;
 
 public class Error {
 
-    String error;
+    private String error;
 
     public Error(String error) {
         this.error = error;

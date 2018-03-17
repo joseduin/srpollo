@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.patricia.srpollo.R;
 import com.patricia.srpollo.modelo.Historico;
+import com.patricia.srpollo.modelo.RegistroDiarioItem;
+import com.patricia.srpollo.utils.Convertidor;
 import com.patricia.srpollo.utils.IrA;
+import com.patricia.srpollo.utils.Variable;
 
 import java.util.ArrayList;
 
@@ -21,13 +24,21 @@ import java.util.ArrayList;
 
 public class AdaptadorHistorico extends RecyclerView.Adapter<AdaptadorHistorico.HistoricoViewHolder> {
 
-    ArrayList<Historico> historicos;
+    private ArrayList<RegistroDiarioItem> historicos;
+    private Context context;
 
-    Context context;
+    private CallbackInterface mCallback;
 
-    public AdaptadorHistorico(ArrayList<Historico> historicos, Context context){
+    public interface CallbackInterface {
+        void onHandleSelection(int position, String metohd);
+    }
+
+
+    public AdaptadorHistorico(ArrayList<RegistroDiarioItem> historicos, Context context){
         this.historicos = historicos;
         this.context = context;
+
+        this.mCallback = (CallbackInterface) context;
     }
 
     @Override
@@ -39,26 +50,45 @@ public class AdaptadorHistorico extends RecyclerView.Adapter<AdaptadorHistorico.
 
     @Override
     public void onBindViewHolder(HistoricoViewHolder holder, int position) {
+        final RegistroDiarioItem item = historicos.get(position);
 
-        Historico historico = historicos.get(position);
-        holder.gasto.setText(historico.getGastoEfectivo()+"");
-        holder.producto.setText(historico.getProducto());
-        holder.saldo.setText(String.valueOf(historico.getSaldoEfectivo()));
-        holder.turno.setText(historico.getLista().getNombre());
+        if (item.getProducto_id() == 0) {
+            String split = " - ";
+            holder.tProducto.setText("Soda");
+            holder.producto.setText( item.getSabore().getSoda().getCategoria().getDescripcion() + split +
+                    item.getSabore().getSoda().getDescripcion() + split +
+                    item.getSabore().getDescripcion() );
+        } else {
+            holder.tProducto.setText("Producto");
+            holder.producto.setText( item.getProducto().getDescripcion() );
+        }
 
+        holder.gasto.setText(Convertidor.DoubleToString( item.getGasto_efectivo(), 2 ) + Variable.MONEDA);
+        holder.caja_chica.setText( Convertidor.DoubleToString( item.getCaja_chica(), 2 ) + Variable.MONEDA );
+        holder.saldo.setText( Convertidor.DoubleToString( item.getSaldo_caja_chica(), 2 ) + Variable.MONEDA );
+        holder.turno.setText( item.getTurno().getDescripcion() );
 
-
-        holder.imageEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
+        if ((historicos.size() - 1) == position) {
+            holder.imageEliminar.setVisibility(View.VISIBLE);
+            holder.imageEliminar.setOnClickListener(new View.OnClickListener() {
+                @Override
                 public void onClick(View view) {
-                    //IrA.vista(context, ObservacionesAsistenciaActivity.class);
+                    mCallback.onHandleSelection(item.getId(), "borrar");
                 }
             });
+        } else {
+            holder.imageEliminar.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public int getItemCount() {
         return historicos.size();
+    }
+
+    public void updateList(ArrayList<RegistroDiarioItem> historicos) {
+        this.historicos = historicos;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -67,7 +97,7 @@ public class AdaptadorHistorico extends RecyclerView.Adapter<AdaptadorHistorico.
     }
 
     public static class HistoricoViewHolder extends RecyclerView.ViewHolder {
-        TextView producto, gasto, saldo, turno;
+        TextView producto, gasto, saldo, turno, tProducto, caja_chica;
         ImageButton imageEliminar;
 
         HistoricoViewHolder(View itemView) {
@@ -76,8 +106,9 @@ public class AdaptadorHistorico extends RecyclerView.Adapter<AdaptadorHistorico.
             gasto = itemView.findViewById(R.id.gasto);
             saldo = itemView.findViewById(R.id.saldo);
             turno = itemView.findViewById(R.id.turno);
+            tProducto = itemView.findViewById(R.id.tProducto);
             imageEliminar = itemView.findViewById(R.id.imageEliminar);
-
+            caja_chica = itemView.findViewById(R.id.caja_chica);
         }
     }
 }

@@ -7,19 +7,28 @@ package com.patricia.srpollo.restApi;
 public class ConstantesRestApi {
 
     public static final String API  = "https://srpollo-joseduin.c9users.io/";
-    public static final String JSON = ".json?movil=true";
-    public static final String ALMACEN = "&almacen_id={alamacen_id}";
+    private static final String JSON = ".json?movil=true";
 
-    public static final String TURNO     = "turnos";
+    private static final String LOGIN = "login_access";
+    public static final String URL_LOGIN = API + LOGIN + ".json";
+
+    private static final String TURNO     = "turnos";
     public static final String URL_TURNO = API + TURNO + JSON;
 
-    public static final String PRODUCTO     = "productos";
+    private static final String PRODUCTO     = "productos";
     public static final String URL_PRODUCTO = API + PRODUCTO + JSON;
 
-    public static final String EXISTE_REGISTRRO     = "existe_registro";
+    private static final String EXISTE_REGISTRRO     = "existe_registro";
     public static final String URL_EXISTE_REGISTRRO = API + EXISTE_REGISTRRO + JSON;
 
-    public static final String REGISTRO_DIARIO = "registro_diarios";
+    private static final String REGISTRO_DIARIO = "registro_diarios";
     public static final String URL_REGISTRO_DIARIO = API + REGISTRO_DIARIO + JSON;
+
+    private static final String REGISTRO_DIARIO_ITEM  = "/{registro_diario_id}/registro_diario_items";
+    public static final String URL_REGISTRO_DIARIO_ITEM = API + REGISTRO_DIARIO + REGISTRO_DIARIO_ITEM + JSON;
+
+    private static final String SABORE = "sabores";
+    public static final String URL_SABORE = API + SABORE + JSON;
+
 
 }

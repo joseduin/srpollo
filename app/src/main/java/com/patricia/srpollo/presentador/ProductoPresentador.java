@@ -76,11 +76,11 @@ public class ProductoPresentador implements IProductoPresentador {
     @Override
     public void prepararComboProductos() {
         String[] spinnerArray = new String[productos.size()];
-        HashMap<Integer, Producto> spinnerMap = new HashMap<Integer, Producto>();
+        HashMap<String, Producto> spinnerMap = new HashMap<String, Producto>();
         for (int i = 0; i < productos.size(); i++) {
             Producto t = productos.get(i);
 
-            spinnerMap.put(i, t);
+            spinnerMap.put(t.getDescripcion(), t);
             spinnerArray[i] = t.getDescripcion();
         }
         mostrarComboProductos(spinnerArray);

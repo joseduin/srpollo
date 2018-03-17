@@ -20,6 +20,7 @@ import com.patricia.srpollo.modelo.RegistroDiarioRequest;
 import com.patricia.srpollo.restApi.EndPointsApi;
 import com.patricia.srpollo.restApi.adapter.RestApiAdapter;
 import com.patricia.srpollo.restApi.modelo.RegistroDiarioResponse;
+import com.patricia.srpollo.sesion.SessionManager;
 import com.patricia.srpollo.utils.Convertidor;
 import com.patricia.srpollo.utils.Hora;
 import com.patricia.srpollo.utils.IrA;
@@ -37,18 +38,17 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity {
     private ProgressDialog progressDialog;
 
     private RegistroDiario REGISTRO;
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
+        session = new SessionManager(InicioActivity.this);
+        session.checkIn();
 
         enlazarVista();
-        // boton atras
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         OnClick();
-
     }
 
     @Override
@@ -102,7 +102,7 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity {
         progressDialog = Mensaje.progressConsultar(InicioActivity.this);
         progressDialog.show();
 
-        int almacen_id = 1;
+        int almacen_id = session.getActivo().getAlmacen_id();
 
         RestApiAdapter restApiAdapter = new RestApiAdapter();
         Gson gson = restApiAdapter.existeRegistro();
@@ -194,7 +194,7 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity {
         progressDialog = Mensaje.progressEnvio(InicioActivity.this);
         progressDialog.show();
 
-        int almacen_id = 1;
+        int almacen_id = session.getActivo().getAlmacen_id();
         double ingreso_efectivo = monto;
 
         RestApiAdapter restApiAdapter = new RestApiAdapter();
@@ -221,7 +221,6 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity {
                 Log.e("ERROR", t.toString() + " " + call.toString());
             }
         });
-
     }
 
     @Override

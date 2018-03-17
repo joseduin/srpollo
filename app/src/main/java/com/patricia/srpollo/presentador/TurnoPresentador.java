@@ -71,11 +71,11 @@ public class TurnoPresentador implements ITurnoPresentador {
     @Override
     public void prepararComboTurno() {
         String[] spinnerArray = new String[turnos.size()];
-        HashMap<Integer, String> spinnerMap = new HashMap<Integer, String>();
+        HashMap<String, Turno> spinnerMap = new HashMap<>();
         for (int i = 0; i < turnos.size(); i++) {
             Turno t = turnos.get(i);
 
-            spinnerMap.put(i, String.valueOf(t.getId()) );
+            spinnerMap.put(t.getDescripcion(), t);
             spinnerArray[i] = t.getDescripcion();
         }
         mostrarComboTurno(spinnerArray);

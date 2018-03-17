@@ -11,6 +11,6 @@ import java.util.HashMap;
 public interface IProducto {
 
     public void cargarComboProducto(String[] productos);
-    public void cargarMapProductos(HashMap<Integer, Producto> map);
+    public void cargarMapProductos(HashMap<String, Producto> map);
 
 }

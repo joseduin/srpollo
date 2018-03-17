@@ -1,8 +1,12 @@
 package com.patricia.srpollo.restApi;
 
+import com.patricia.srpollo.modelo.RegistroDiarioItemRequest;
 import com.patricia.srpollo.modelo.RegistroDiarioRequest;
+import com.patricia.srpollo.modelo.TrabajadorRequest;
 import com.patricia.srpollo.restApi.modelo.ProductoResponse;
 import com.patricia.srpollo.restApi.modelo.RegistroDiarioResponse;
+import com.patricia.srpollo.restApi.modelo.SaboreResponse;
+import com.patricia.srpollo.restApi.modelo.TrabajadorResponse;
 import com.patricia.srpollo.restApi.modelo.TurnoResponse;
 
 import retrofit2.Call;
@@ -31,4 +35,21 @@ public interface EndPointsApi {
     @Headers("Content-Type: application/json")
     @POST(ConstantesRestApi.URL_REGISTRO_DIARIO)
     Call<RegistroDiarioResponse> registroRequest(@Body RegistroDiarioRequest request);
+
+    @GET(ConstantesRestApi.URL_SABORE)
+    Call<SaboreResponse> buscarSabores();
+
+    @Headers("Content-Type: application/json")
+    @POST(ConstantesRestApi.URL_REGISTRO_DIARIO_ITEM)
+    Call<RegistroDiarioResponse> registroItemRequest(@Body RegistroDiarioItemRequest request,
+                                                     @Path("registro_diario_id") int registro_diario_id);
+
+    @GET(ConstantesRestApi.URL_REGISTRO_DIARIO)
+    Call<RegistroDiarioResponse> buscarHistoricoRegistroDiario(@Query("almacen_id") int almacen_id,
+                                                       @Query("fecha") String fecha);
+
+    @Headers("Content-Type: application/json")
+    @POST(ConstantesRestApi.URL_LOGIN)
+    Call<TrabajadorResponse> login(@Body TrabajadorRequest request);
+
 }

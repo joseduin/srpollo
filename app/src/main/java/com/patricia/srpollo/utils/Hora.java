@@ -13,11 +13,17 @@ import java.util.TimeZone;
 
 public class Hora {
 
-    private static SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+    public static SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd");
+    public static SimpleDateFormat sdfCalendar = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
     private static TimeZone tz = TimeZone.getTimeZone("America/La_Paz");
 
     public static String horaActual() {
         sdf.setTimeZone(tz);
+        return sdf.format(new Date());
+    }
+
+    public static String horaActualCalendar() {
+        sdfCalendar.setTimeZone(tz);
         return sdf.format(new Date());
     }
 

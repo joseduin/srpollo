@@ -1,5 +1,7 @@
 package com.patricia.srpollo.interfaz;
 
+import com.patricia.srpollo.modelo.Turno;
+
 import java.util.HashMap;
 
 /**
@@ -9,6 +11,6 @@ import java.util.HashMap;
 public interface ITurno {
 
     public void cargarComboTurno(String[] turnos);
-    public void cargarMapTurno(HashMap<Integer, String> map);
+    public void cargarMapTurno(HashMap<String, Turno> map);
 
 }

@@ -1,10 +1,13 @@
 package com.patricia.srpollo.modelo;
 
+import java.io.Serializable;
+
 /**
  * Created by Jose on 24/2/2018.
  */
 
-public class Producto {
+@SuppressWarnings("serial")
+public class Producto implements Serializable  {
 
     int id;
     String descripcion;

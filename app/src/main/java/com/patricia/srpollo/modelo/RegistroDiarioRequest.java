@@ -5,14 +5,16 @@ package com.patricia.srpollo.modelo;
  */
 
 public class RegistroDiarioRequest {
-    double ingreso_efectivo;
-    int almacen_id;
+
+    private double ingreso_efectivo;
+    private int almacen_id;
 
     public RegistroDiarioRequest(double ingreso_efectivo, int almacen_id) {
         this.ingreso_efectivo = ingreso_efectivo;
         this.almacen_id = almacen_id;
     }
     public RegistroDiarioRequest(){}
+
     public double getIngreso_efectivo() {
         return ingreso_efectivo;
     }

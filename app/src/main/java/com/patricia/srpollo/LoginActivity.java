@@ -1,24 +1,42 @@
 package com.patricia.srpollo;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
 import com.patricia.srpollo.datos_falsos.Datos;
+import com.patricia.srpollo.modelo.Trabajador;
+import com.patricia.srpollo.modelo.TrabajadorRequest;
+import com.patricia.srpollo.restApi.EndPointsApi;
+import com.patricia.srpollo.restApi.adapter.RestApiAdapter;
+import com.patricia.srpollo.restApi.modelo.TrabajadorResponse;
+import com.patricia.srpollo.sesion.SessionManager;
 import com.patricia.srpollo.utils.IrA;
 import com.patricia.srpollo.utils.Mensaje;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText Usuario, contraseña;
     private Button buttonIniciar;
+    private ProgressDialog progressDialog;
+
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        session = new SessionManager(LoginActivity.this);
+        session.checkOut();
 
         enlazarVista();
         OnClick();
@@ -28,13 +46,52 @@ public class LoginActivity extends AppCompatActivity {
         buttonIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String usuario = Usuario.getText().toString().trim();
-                String clave = contraseña.getText().toString().trim();
+                login();
+            }
+        });
+    }
 
-                if (!usuario.equals(Datos.USUARIO) && !clave.equals(Datos.CLAVE))
+    private void login() {
+        String usuario = Usuario.getText().toString().trim();
+        String clave = contraseña.getText().toString().trim();
+
+        if (usuario.isEmpty() || clave.isEmpty()) {
+            Mensaje.mensajeLargo(this, getResources().getString(R.string.campos_obligatorios));
+            return;
+        }
+
+        progressDialog = Mensaje.progressEnvio(LoginActivity.this);
+        progressDialog.show();
+
+        RestApiAdapter restApiAdapter = new RestApiAdapter();
+        Gson gson = restApiAdapter.login();
+        EndPointsApi endPointsApi = restApiAdapter.establecerConexionApi(gson);
+
+        TrabajadorRequest request = new TrabajadorRequest(usuario, clave);
+        Call<TrabajadorResponse> call = endPointsApi.login(request);
+        Log.d("RESPONSE", call.request().url().toString() + " ");
+
+        call.enqueue(new Callback<TrabajadorResponse>() {
+            @Override
+            public void onResponse(Call<TrabajadorResponse> call, Response<TrabajadorResponse> response) {
+                progressDialog.dismiss();
+                Log.d("RESPONSE", response.body().toString());
+                if (response.code() == 200) {
+                    TrabajadorResponse res = response.body();
+                    Trabajador trabajador = res.getTrabajador();
+                    session.createLoginSession(trabajador);
                     IrA.vista(LoginActivity.this,InicioActivity.class);
-                else
+
+                } else {
                     Mensaje.mensajeCorto(LoginActivity.this, Mensaje.ERROR_AUTH);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TrabajadorResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Mensaje.mensajeCorto(LoginActivity.this, Mensaje.ERROR_CONEXION);
+                Log.e("ERROR", t.toString() + " " + call.toString());
             }
         });
     }

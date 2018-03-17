@@ -9,16 +9,34 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class RegistroDiarioItem implements Serializable {
 
-    int id;
-    int turno_id;
-    int producto_id;
-    int sabore_id;
-    double cantidad_ingreso;
-    double gasto_efectivo;
-    double caja_chica;
-    double saldo_caja_chica;
-    int registro_diario;
-    String created_at;
+    private int id;
+    private int turno_id;
+    private int producto_id;
+    private int sabore_id;
+    private double cantidad_ingreso;
+    private double gasto_efectivo;
+    private double caja_chica;
+    private double saldo_caja_chica;
+    private int registro_diario;
+    private String created_at;
+
+    private Sabore sabore;
+    private Producto producto;
+    private Turno turno;
+
+    public RegistroDiarioItem(int id, int turno_id, int producto_id, int sabore_id, double cantidad_ingreso, double gasto_efectivo, double caja_chica, double saldo_caja_chica, int registro_diario, String created_at) {
+        this.id = id;
+        this.turno_id = turno_id;
+        this.producto_id = producto_id;
+        this.sabore_id = sabore_id;
+        this.cantidad_ingreso = cantidad_ingreso;
+        this.gasto_efectivo = gasto_efectivo;
+        this.caja_chica = caja_chica;
+        this.saldo_caja_chica = saldo_caja_chica;
+        this.registro_diario = registro_diario;
+        this.created_at = created_at;
+    }
+    public RegistroDiarioItem() {}
 
     public int getId() {
         return id;
@@ -100,17 +118,27 @@ public class RegistroDiarioItem implements Serializable {
         this.created_at = created_at;
     }
 
-    public RegistroDiarioItem(int id, int turno_id, int producto_id, int sabore_id, double cantidad_ingreso, double gasto_efectivo, double caja_chica, double saldo_caja_chica, int registro_diario, String created_at) {
-        this.id = id;
-        this.turno_id = turno_id;
-        this.producto_id = producto_id;
-        this.sabore_id = sabore_id;
-        this.cantidad_ingreso = cantidad_ingreso;
-        this.gasto_efectivo = gasto_efectivo;
-        this.caja_chica = caja_chica;
-        this.saldo_caja_chica = saldo_caja_chica;
-        this.registro_diario = registro_diario;
-        this.created_at = created_at;
+    public Sabore getSabore() {
+        return sabore;
     }
-    public RegistroDiarioItem() {}
+
+    public void setSabore(Sabore sabore) {
+        this.sabore = sabore;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Turno getTurno() {
+        return turno;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
 }

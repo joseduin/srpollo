@@ -47,8 +47,10 @@ public class TurnoDeserealizador  implements JsonDeserializer<TurnoResponse> {
 
             int id              = t.get(JsonKeys.id).getAsInt();
             String descripcion  = t.get(JsonKeys.descripcion).getAsString();
+            String inicio       = t.get(JsonKeys.inicio).getAsString();
+            String fin          = t.get(JsonKeys.fin).getAsString();
 
-            Turno turno = new Turno(id, descripcion);
+            Turno turno = new Turno(id, descripcion, inicio, fin);
             turnos.add(turno);
         }
         return turnos;

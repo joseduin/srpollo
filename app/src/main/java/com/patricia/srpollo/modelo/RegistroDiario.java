@@ -10,21 +10,23 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class RegistroDiario implements Serializable {
 
-    int id;
-    double ingreso_efectivo;
-    String fecha;
-    String created_at;
-    int almacen_id;
-    ArrayList <RegistroDiarioItem> items;
+    private int id;
+    private double ingreso_efectivo;
+    private String fecha;
+    private String created_at;
+    private int almacen_id;
+    private ArrayList <RegistroDiarioItem> items;
 
-    public RegistroDiario(){}
     public RegistroDiario(int id, double ingreso_efectivo, String fecha, String created_at, int almacen_id) {
         this.id = id;
         this.ingreso_efectivo = ingreso_efectivo;
         this.fecha = fecha;
         this.created_at = created_at;
         this.almacen_id = almacen_id;
+        this.items = new ArrayList<>();
     }
+
+    public RegistroDiario(){}
 
     public ArrayList<RegistroDiarioItem> getItems() {
         return items;
