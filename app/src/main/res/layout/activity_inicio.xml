@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.patricia.srpollo.InicioActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingTop="10dp">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:id="@+id/linearIninicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/usuario"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="Usuario" />
+
+                            <TextView
+                                android:id="@+id/nombreUsuario"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:text="Jose Duin" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_gravity="center_horizontal"
+                            app:srcCompat="@drawable/logo_sr_pollo" />
+
+                        <TextView
+                            android:id="@+id/ubicacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="tienda 1" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/bRegistroDiario"
+                        style="@style/botonSecundario"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:text="Registro Diario" />
+
+                    <Button
+                        android:id="@+id/bInventario"
+                        style="@style/botonSecundario"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:text="Inventario" />
+
+                    <Button
+                        android:id="@+id/bAsistencia"
+                        style="@style/botonSecundario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Asistencia" />
+
+                    <Button
+                        android:id="@+id/bFaltantes"
+                        style="@style/botonSecundario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Faltantes de Productos" />
+
+                    <Button
+                        android:id="@+id/bSanciones"
+                        style="@style/botonSecundario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Sanciones" />
+
+                    <Button
+                        android:id="@+id/bListadoSodas"
+                        style="@style/botonSecundario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Listado de Sodas" />
+
+                    <Button
+                        android:id="@+id/bListadoProductos"
+                        style="@style/botonSecundario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Listado de Productos Generales" />
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+</RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
