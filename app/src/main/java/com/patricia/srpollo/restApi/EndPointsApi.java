@@ -3,6 +3,8 @@ package com.patricia.srpollo.restApi;
 import com.patricia.srpollo.modelo.RegistroDiarioItemRequest;
 import com.patricia.srpollo.modelo.RegistroDiarioRequest;
 import com.patricia.srpollo.modelo.TrabajadorRequest;
+import com.patricia.srpollo.restApi.modelo.ListaComprasResponse;
+import com.patricia.srpollo.restApi.modelo.PedidosSodasResponse;
 import com.patricia.srpollo.restApi.modelo.ProductoResponse;
 import com.patricia.srpollo.restApi.modelo.RegistroDiarioResponse;
 import com.patricia.srpollo.restApi.modelo.SaboreResponse;
@@ -51,5 +53,12 @@ public interface EndPointsApi {
     @Headers("Content-Type: application/json")
     @POST(ConstantesRestApi.URL_LOGIN)
     Call<TrabajadorResponse> login(@Body TrabajadorRequest request);
+
+    @GET(ConstantesRestApi.URL_LISTA_GENERAL)
+    Call<ListaComprasResponse> listaComprasGenerales(@Query("almacen_id") int almacen_id);
+
+    @GET(ConstantesRestApi.URL_PEDIDOS_SODAS)
+    Call<PedidosSodasResponse> listaPedidosSodas(@Query("almacen_id") int almacen_id);
+
 
 }

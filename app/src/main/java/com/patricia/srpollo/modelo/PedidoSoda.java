@@ -6,7 +6,7 @@ package com.patricia.srpollo.modelo;
 
 public class PedidoSoda {
 
-    String producto;
+    private String producto;
     int uds, cantpaq,totalPaq, cantUds;
 
     public PedidoSoda(String producto, int uds, int cantpaq, int totalPaq, int cantUds) {

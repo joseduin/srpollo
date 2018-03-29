@@ -33,18 +33,26 @@ public class JsonKeys {
     public final static String cantidad_unidades    = "cantidad_unidades";
     public final static String categoria            = "categoria";
     public final static String rol            = "rol";
-
     public final static String turno_b            = "turno_b";
     public final static String sabore_b            ="sabore_b";
     public final static String producto_b            ="producto_b";
+    public final static String nombre = "nombre";
+    public final static String apellido = "apellido";
+    public final static String cargo_id = "cargo_id";
+    public final static String identificacion = "identificacion";
+    public final static String turno = "turno";
+    public final static String cargo = "cargo";
+    public final static String almacen = "almacen";
+    public final static String usuario = "usuario";
 
+    public final static String LISTA = "lista";
+    public final static String CONFIGURACION = "configuracion";
 
-    public static String nombre = "nombre";
-    public static String apellido = "apellido";
-    public static String cargo_id = "cargo_id";
-    public static String identificacion = "identificacion";
-    public static String turno = "turno";
-    public static String cargo = "cargo";
-    public static String almacen = "almacen";
-    public static String usuario = "usuario";
+    public final static String soda_whatsaap = "soda_whatsaap";
+    public final static String lista_whatsaap = "lista_whatsaap";
+    public final static String numero_columna = "numero_columna";
+    public final static String cantidad_comprar = "cantidad_comprar";
+    public final static String producto = "producto";
+    public final static String unidad = "unidad";
+
 }

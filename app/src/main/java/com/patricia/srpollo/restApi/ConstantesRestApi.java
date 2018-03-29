@@ -30,5 +30,10 @@ public class ConstantesRestApi {
     private static final String SABORE = "sabores";
     public static final String URL_SABORE = API + SABORE + JSON;
 
+    private static final String LISTA_GENERAL = "lista_compras";
+    public static final String URL_LISTA_GENERAL = API + LISTA_GENERAL + JSON;
+
+    private static final String PEDIDOS_SODAS = "pedidos_sodas";
+    public static final String URL_PEDIDOS_SODAS = API + PEDIDOS_SODAS + JSON;
 
 }
