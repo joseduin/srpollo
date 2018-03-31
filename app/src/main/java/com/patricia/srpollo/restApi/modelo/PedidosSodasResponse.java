@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PedidosSodasResponse {
 
-    private ArrayList<PedidoSoda> pedidoSoda;
+    private ArrayList<PedidoSoda> pedidoSoda = new ArrayList<>();
     private Configuracion configuracion;
 
     public ArrayList<PedidoSoda> getPedidoSoda() {

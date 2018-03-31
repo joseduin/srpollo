@@ -68,9 +68,6 @@ public class RegistroDiarioActivity extends AppCompatActivity implements IBaseAc
     private EditText cantidad_ingreso, gasto_efectivo, caja_chica, saldo_caja_chica;
     private Button btn_crear_registro;
 
-    private ITurnoPresentador iRegistroDiarioPresentador;
-    private HashMap<String, Turno> mapTurno = new HashMap<>();
-
     private IProductoPresentador iProductoPresentador;
     private HashMap<String, Producto> mapProducto = new HashMap<>();
     private ArrayAdapter<String> adapterProducto;

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ListaComprasResponse {
 
-    private ArrayList<ListaCompra> listaCompra;
+    private ArrayList<ListaCompra> listaCompra = new ArrayList<>();
     private Configuracion configuracion;
 
     public ArrayList<ListaCompra> getListaCompra() {

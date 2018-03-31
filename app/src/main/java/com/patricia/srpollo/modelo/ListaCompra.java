@@ -6,10 +6,15 @@ package com.patricia.srpollo.modelo;
 
 public class ListaCompra {
 
+    private int id;
     private String producto;
     private double cantcomprar;
     private double cantPaquete;
     private String unidad;
+
+    private double cantComprada;
+    private double total;
+    private double costo;
 
     public ListaCompra(String producto, double cantcomprar, double cantPaquete, String unidad) {
         this.producto = producto;
@@ -19,6 +24,14 @@ public class ListaCompra {
     }
 
     public ListaCompra() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getProducto() {
         return producto;
@@ -50,5 +63,29 @@ public class ListaCompra {
 
     public void setUnidad(String unidad) {
         this.unidad = unidad;
+    }
+
+    public double getCantComprada() {
+        return cantComprada;
+    }
+
+    public void setCantComprada(double cantComprada) {
+        this.cantComprada = cantComprada;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
     }
 }

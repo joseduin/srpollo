@@ -6,6 +6,7 @@ package com.patricia.srpollo.modelo;
 
 public class Configuracion {
 
+    private int id;
     private String soda_whatsaap;
     private String lista_whatsaap;
     private String numero_columna;
@@ -16,6 +17,14 @@ public class Configuracion {
     }
 
     public Configuracion() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSoda_whatsaap() {

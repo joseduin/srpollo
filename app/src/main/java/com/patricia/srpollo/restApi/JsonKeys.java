@@ -52,7 +52,9 @@ public class JsonKeys {
     public final static String lista_whatsaap = "lista_whatsaap";
     public final static String numero_columna = "numero_columna";
     public final static String cantidad_comprar = "cantidad_comprar";
+    public final static String sabore = "sabore";
     public final static String producto = "producto";
     public final static String unidad = "unidad";
+    public final static String  unidades_por_paquete = "unidades_por_paquete";
 
 }

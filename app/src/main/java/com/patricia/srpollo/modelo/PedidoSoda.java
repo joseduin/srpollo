@@ -6,54 +6,86 @@ package com.patricia.srpollo.modelo;
 
 public class PedidoSoda {
 
-    private String producto;
-    int uds, cantpaq,totalPaq, cantUds;
+    private int id;
+    private String sabore;
+    private double cantcomprar;
+    private int unidades_por_paquete;
+    private String unidad;
 
-    public PedidoSoda(String producto, int uds, int cantpaq, int totalPaq, int cantUds) {
-        this.producto = producto;
-        this.uds = uds;
-        this.cantpaq = cantpaq;
-        this.totalPaq = totalPaq;
-        this.cantUds = cantUds;
+    private double cantComprada;
+    private double total;
+    private double costo;
+
+    public PedidoSoda(String sabore, double cantcomprar, int unidades_por_paquete, String unidad) {
+        this.sabore = sabore;
+        this.cantcomprar = cantcomprar;
+        this.unidades_por_paquete = unidades_por_paquete;
+        this.unidad = unidad;
     }
 
-    public String getProducto() {
-        return producto;
+    public PedidoSoda() {}
+
+    public int getId() {
+        return id;
     }
 
-    public void setProducto(String producto) {
-        this.producto = producto;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getUds() {
-        return uds;
+    public String getSabore() {
+        return sabore;
     }
 
-    public void setUds(int uds) {
-        this.uds = uds;
+    public void setSabore(String sabore) {
+        this.sabore = sabore;
     }
 
-    public int getCantpaq() {
-        return cantpaq;
+    public double getCantcomprar() {
+        return cantcomprar;
     }
 
-    public void setCantpaq(int cantpaq) {
-        this.cantpaq = cantpaq;
+    public void setCantcomprar(double cantcomprar) {
+        this.cantcomprar = cantcomprar;
     }
 
-    public int getTotalPaq() {
-        return totalPaq;
+    public double getUnidades_por_paquete() {
+        return unidades_por_paquete;
     }
 
-    public void setTotalPaq(int totalPaq) {
-        this.totalPaq = totalPaq;
+    public void setUnidades_por_paquete(int unidades_por_paquete) {
+        this.unidades_por_paquete = unidades_por_paquete;
     }
 
-    public int getCantUds() {
-        return cantUds;
+    public String getUnidad() {
+        return unidad;
     }
 
-    public void setCantUds(int cantUds) {
-        this.cantUds = cantUds;
+    public void setUnidad(String unidad) {
+        this.unidad = unidad;
+    }
+
+    public double getCantComprada() {
+        return cantComprada;
+    }
+
+    public void setCantComprada(double cantComprada) {
+        this.cantComprada = cantComprada;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
     }
 }
