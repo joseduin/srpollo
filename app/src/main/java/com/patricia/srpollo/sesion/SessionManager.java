@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.patricia.srpollo.InicioActivity;
 import com.patricia.srpollo.LoginActivity;
+import com.patricia.srpollo.modelo.Almacen;
 import com.patricia.srpollo.modelo.Trabajador;
 
 /**
@@ -67,16 +68,15 @@ public class SessionManager {
         editor.putInt(KEY_ROL, trabajador.getRol());
         editor.putString(KEY_ROL_DESC, trabajador.getRol() == 1 ? "Administrador" : "Trabajador");
         editor.putString(KEY_IDENTIFICACION, trabajador.getIdentificacion());
-        editor.putInt(KEY_ALMACEN, trabajador.getAlmacen_id());
+        editor.putInt(KEY_ALMACEN, trabajador.getAlmacen().getId());
+        editor.putString(KEY_ALMACEN_DESC, trabajador.getAlmacen().getNombre());
 
         if (trabajador.getRol() == 1) {
-            editor.putString(KEY_ALMACEN_DESC, null);
             editor.putInt(KEY_CARGO_ID, 0);
             editor.putString(KEY_CARGO, null);
             editor.putInt(KEY_TURNO_ID, 0);
             editor.putString(KEY_TURNO, null);
         } else {
-            editor.putString(KEY_ALMACEN_DESC, trabajador.getAlmacen().getNombre());
             editor.putInt(KEY_CARGO_ID, trabajador.getCargo_id());
             editor.putString(KEY_CARGO, trabajador.getCargo().getDescripcion());
             editor.putInt(KEY_TURNO_ID, trabajador.getTurno_id());
@@ -104,7 +104,7 @@ public class SessionManager {
         }
     }
 
-    private void irA(Class<?> c) {
+    public void irA(Class<?> c) {
         Intent i = new Intent(_context, c);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         _context.startActivity(i);
@@ -123,6 +123,7 @@ public class SessionManager {
         trabajador.setIdentificacion(pref.getString(KEY_IDENTIFICACION, null));
         trabajador.setRol(pref.getInt(KEY_ROL, 0));
         trabajador.setAlmacen_id(pref.getInt(KEY_ALMACEN, 0));
+        trabajador.setAlmacen(new Almacen(pref.getInt(KEY_ALMACEN, 0), pref.getString(KEY_ALMACEN_DESC, null)));
         trabajador.setCargo_id(pref.getInt(KEY_CARGO_ID, 0));
         trabajador.setTurno_id(pref.getInt(KEY_TURNO_ID, 0));
 

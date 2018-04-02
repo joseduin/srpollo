@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        progressDialog = Mensaje.progressEnvio(LoginActivity.this);
+        progressDialog = Mensaje.progressConsultar(LoginActivity.this);
         progressDialog.show();
 
         RestApiAdapter restApiAdapter = new RestApiAdapter();

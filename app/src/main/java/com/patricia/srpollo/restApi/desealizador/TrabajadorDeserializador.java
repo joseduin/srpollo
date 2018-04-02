@@ -64,28 +64,39 @@ public class TrabajadorDeserializador implements JsonDeserializer<TrabajadorResp
     }
 
     private Trabajador deserializarTrabajador(JsonObject data) {
+        Log.d("GSON", "1");
         int id = data.get(JsonKeys.id).getAsInt();
+        Log.d("GSON", "2");
         int rol = data.get(JsonKeys.rol).getAsInt();
+        Log.d("GSON", "3");
         String nombre = data.get(JsonKeys.nombre).getAsString();
+        Log.d("GSON", "4");
         String apellido = data.get(JsonKeys.apellido).getAsString();
-        int cargo_id = data.get(JsonKeys.cargo_id).getAsInt();
+        Log.d("GSON", "5");
+        int cargo_id = data.get(JsonKeys.cargo_id).toString().contains("null") ? 0 : data.get(JsonKeys.cargo_id).getAsInt();
+        Log.d("GSON", "6");
         String identificacion = data.get(JsonKeys.identificacion).toString().contains("null") ? "" : data.get(JsonKeys.identificacion).getAsString();
+        Log.d("GSON", "7");
         int almacen_id = data.get(JsonKeys.almacen_id).getAsInt();
+        Log.d("GSON", "8");
         String usuario = data.get(JsonKeys.usuario).getAsString();
-
+        Log.d("GSON", "9");
         Turno turno = new Turno();
         Cargo cargo = new Cargo();
-        Almacen almacen = new Almacen();
         Trabajador trabajador = new Trabajador(id, rol, nombre, apellido, cargo_id, identificacion, almacen_id, usuario);
+
         if (rol == 2) {
+            Log.d("GSON", "10");
             turno = deserializarTurno(data.getAsJsonObject().getAsJsonObject(JsonKeys.turno));
+            Log.d("GSON", "11");
             cargo = deserializarCargo(data.getAsJsonObject().getAsJsonObject(JsonKeys.cargo));
-            almacen = deserializarAlmacen(data.getAsJsonObject().getAsJsonObject(JsonKeys.almacen));
+            Log.d("GSON", "12");
 
             trabajador.setTurno(turno);
             trabajador.setCargo(cargo);
-            trabajador.setAlmacen(almacen);
         }
+        Almacen almacen = deserializarAlmacen(data.getAsJsonObject().getAsJsonObject(JsonKeys.almacen));
+        trabajador.setAlmacen(almacen);
 
         return trabajador;
     }

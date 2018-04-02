@@ -35,7 +35,8 @@ public class BaseDatos extends SQLiteOpenHelper {
                 ConstantesBaseDatos.UNIDAD + " TEXT, " +
                 ConstantesBaseDatos.CANT_COMPRADA + " REAL, " +
                 ConstantesBaseDatos.CANT_TOTAL + " REAL, " +
-                ConstantesBaseDatos.COSTO + " REAL " +
+                ConstantesBaseDatos.COSTO + " REAL, " +
+                ConstantesBaseDatos.ID_WEB + " INTEGER " +
                 ")";
 
         String tablePedidos = "CREATE TABLE " + ConstantesBaseDatos.TABLE_PEDIDOS + "(" +
@@ -47,12 +48,13 @@ public class BaseDatos extends SQLiteOpenHelper {
                 ConstantesBaseDatos.CANT_COMPRADA + " REAL, " +
                 ConstantesBaseDatos.CANT_TOTAL + " REAL, " +
                 ConstantesBaseDatos.COSTO + " REAL, " +
+                ConstantesBaseDatos.ID_WEB + " INTEGER " +
                 ")";
 
         String tableConf = "CREATE TABLE " + ConstantesBaseDatos.TABLE_CONFIGURACION + "(" +
                 ConstantesBaseDatos.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ConstantesBaseDatos.WTS_COMPRA + " TEXT, " +
-                ConstantesBaseDatos.WTS_SABORE + " TEXT, " +
+                ConstantesBaseDatos.WTS_SABORE + " TEXT " +
                 ")";
 
         db.execSQL(tableCompras);
@@ -82,12 +84,13 @@ public class BaseDatos extends SQLiteOpenHelper {
     }
 
     public void eliminarTodos(String table) {
-
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + table);
     }
 
     public void eliminar(String table, String table_id, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("delete from " + table);
+        db.delete(table, table_id + "=" + id, null);
     }
 
     public ArrayList<ListaCompra> listaCommpras() {
@@ -98,6 +101,21 @@ public class BaseDatos extends SQLiteOpenHelper {
 
         while (registros.moveToNext()) {
             reports.add( getListadoCompra(registros) );
+        }
+
+        db.close();
+        return reports;
+    }
+
+    public ListaCompra listaCommpras(int id) {
+        ListaCompra reports = null;
+        String query = "SELECT * FROM " + ConstantesBaseDatos.TABLE_COMPRAS +
+        " WHERE " + ConstantesBaseDatos.ID + "=" + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor registros = db.rawQuery(query, null);
+
+        while (registros.moveToNext()) {
+            reports = getListadoCompra(registros);
         }
 
         db.close();
@@ -116,6 +134,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         listaCompra.setCantComprada(registros.getDouble(5));
         listaCompra.setTotal(registros.getDouble(6));
         listaCompra.setCosto(registros.getDouble(7));
+        listaCompra.setIdWeb(registros.getInt(8));
 
         return listaCompra;
     }
@@ -134,6 +153,21 @@ public class BaseDatos extends SQLiteOpenHelper {
         return reports;
     }
 
+    public PedidoSoda pedidosSodas(int id) {
+        PedidoSoda reports = null;
+        String query = "SELECT * FROM " + ConstantesBaseDatos.TABLE_PEDIDOS +
+                " WHERE " + ConstantesBaseDatos.ID + "=" + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor registros = db.rawQuery(query, null);
+
+        while (registros.moveToNext()) {
+            reports = getPedidosSodas(registros);
+        }
+
+        db.close();
+        return reports;
+    }
+
     private PedidoSoda getPedidosSodas(Cursor registros) {
         PedidoSoda pedidoSoda = new PedidoSoda();
 
@@ -146,12 +180,13 @@ public class BaseDatos extends SQLiteOpenHelper {
         pedidoSoda.setCantComprada(registros.getDouble(5));
         pedidoSoda.setTotal(registros.getDouble(6));
         pedidoSoda.setCosto(registros.getDouble(7));
+        pedidoSoda.setIdWeb(registros.getInt(8));
 
         return pedidoSoda;
     }
 
     public Configuracion configuracion() {
-        Configuracion reports = new Configuracion();
+        Configuracion reports = null;
         String query = "SELECT * FROM " + ConstantesBaseDatos.TABLE_CONFIGURACION;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor registros = db.rawQuery(query, null);

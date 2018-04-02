@@ -36,7 +36,7 @@ public class AdaptadorPedidoSoda extends RecyclerView.Adapter<AdaptadorPedidoSod
     @Override
     public void onBindViewHolder(PedidoSodaViewHolder holder, int position) {
         PedidoSoda pedidoSoda = pedidoSodas.get(position);
-
+/*
         holder.producto.setText(pedidoSoda.getProducto());
 
         if (pedidoSoda.getUds() != 0)
@@ -47,6 +47,7 @@ public class AdaptadorPedidoSoda extends RecyclerView.Adapter<AdaptadorPedidoSod
             holder.totalPaq.setText(pedidoSoda.getTotalPaq() +"");
         if (pedidoSoda.getCantpaq() != 0)
             holder.cantpaq.setText(pedidoSoda.getCantpaq() +"");
+            */
     }
 
     @Override

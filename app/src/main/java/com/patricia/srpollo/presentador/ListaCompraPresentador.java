@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.patricia.srpollo.InicioActivity;
 import com.patricia.srpollo.RegistroDiarioActivity;
+import com.patricia.srpollo.bd.BdContructor;
 import com.patricia.srpollo.interfaz.IListaCompras;
 import com.patricia.srpollo.modelo.Configuracion;
 import com.patricia.srpollo.modelo.ListaCompra;
@@ -31,17 +32,23 @@ public class ListaCompraPresentador implements IListaCompraPresentador {
     private IListaCompras iListaCompras;
     private Context context;
     private SessionManager session;
+    private BdContructor bd;
 
     private ArrayList<ListaCompra> listaCompras = new ArrayList<>();
     private Configuracion configuracion;
     private ProgressDialog progressDialog;
 
-    public ListaCompraPresentador(IListaCompras iListaCompras, Context context) {
+    public ListaCompraPresentador(IListaCompras iListaCompras, Context context, boolean searchInDataBase) {
         this.iListaCompras = iListaCompras;
         this.context = context;
         session = new SessionManager(context);
+        bd = new BdContructor(context);
 
-        buscarListado();
+        if (!searchInDataBase) {
+            buscarListado();
+        } else {
+            mostrarRecicler();
+        }
     }
 
     @Override
@@ -64,8 +71,10 @@ public class ListaCompraPresentador implements IListaCompraPresentador {
                     ListaComprasResponse r = response.body();
 
                     // Guardar en bd
-                    listaCompras = r.getListaCompra();
-                    configuracion =  r.getConfiguracion();
+                    bd.listaCompraEliminarTodos();
+                    for (ListaCompra l : r.getListaCompra())
+                        bd.listaCompraInsertar(l);
+                    bd.configuracionInsertar(r.getConfiguracion());
 
                     mostrarRecicler();
                 }
@@ -82,6 +91,9 @@ public class ListaCompraPresentador implements IListaCompraPresentador {
 
     @Override
     public void mostrarRecicler() {
+        listaCompras = bd.listaCompras();
+        configuracion = bd.configuracion();
+
         iListaCompras.inicializarAdaptadorRV(iListaCompras.crearAdaptador(listaCompras));
         iListaCompras.generarLayoutVertical();
 

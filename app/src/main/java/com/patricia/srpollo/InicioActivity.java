@@ -8,15 +8,23 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.patricia.srpollo.interfaz.IAlmacen;
 import com.patricia.srpollo.interfaz.IBaseActivity;
+import com.patricia.srpollo.modelo.Almacen;
 import com.patricia.srpollo.modelo.RegistroDiario;
 import com.patricia.srpollo.modelo.RegistroDiarioItem;
 import com.patricia.srpollo.modelo.RegistroDiarioRequest;
+import com.patricia.srpollo.modelo.Trabajador;
+import com.patricia.srpollo.presentador.AlmacenPresentador;
+import com.patricia.srpollo.presentador.IAlmacenPresentador;
 import com.patricia.srpollo.restApi.EndPointsApi;
 import com.patricia.srpollo.restApi.adapter.RestApiAdapter;
 import com.patricia.srpollo.restApi.modelo.RegistroDiarioResponse;
@@ -27,15 +35,22 @@ import com.patricia.srpollo.utils.IrA;
 import com.patricia.srpollo.utils.Mensaje;
 import com.patricia.srpollo.utils.Variable;
 
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InicioActivity extends AppCompatActivity implements IBaseActivity {
+public class InicioActivity extends AppCompatActivity implements IBaseActivity, IAlmacen {
 
-    private Button bRegistroDiario, bInventario, bAsistencia, bFaltantes, bSanciones, bListadoSodas, bListadoProductos;
+    private Button bRegistroDiario, bInventario, bAsistencia, bFaltantes, bSanciones, bListadoSodas, bListadoProductos, cerrarSesion;
     private TextView usuario, nombreUsuario, ubicacion;
+    private Spinner comboTienda;
     private ProgressDialog progressDialog;
+
+    private IAlmacenPresentador iAlmacenPresentador;
+    private HashMap<String, Almacen> mapAlmacen = new HashMap<>();
+    private ArrayAdapter<String> adapterAlmacen;
 
     private RegistroDiario REGISTRO;
     private SessionManager session;
@@ -46,9 +61,39 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity {
         setContentView(R.layout.activity_inicio);
         session = new SessionManager(InicioActivity.this);
         session.checkIn();
-
         enlazarVista();
+
+        setDatosToScreen();
         OnClick();
+    }
+
+    private void setDatosToScreen() {
+        final Trabajador t = session.getActivo();
+        nombreUsuario.setText(t.getNombre() + " " + t.getApellido());
+        usuario.setText(t.getRol() == 1 ? "Administrador" : "Trabajador");
+
+        if (t.getRol() == 1) {
+            comboTienda.setVisibility(View.VISIBLE);
+            ubicacion.setVisibility(View.GONE);
+
+            iAlmacenPresentador = new AlmacenPresentador(InicioActivity.this, this);
+
+            comboTienda.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    Almacen almacen = mapAlmacen.get( comboTienda.getSelectedItem().toString() );
+                    t.setAlmacen(almacen);
+
+                    session.createLoginSession(t);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {}
+            });
+
+        } else {
+            ubicacion.setText(t.getAlmacen().getNombre());
+        }
     }
 
     @Override
@@ -95,7 +140,13 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity {
                 IrA.vista(InicioActivity.this,SancionesActivity.class);
             }
         });
-
+        cerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                session.logout();
+                session.irA(LoginActivity.class);
+            }
+        });
     }
 
     public void existeRegistros() {
@@ -225,7 +276,6 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity {
 
     @Override
     public void enlazarVista() {
-
         bRegistroDiario = findViewById(R.id.bRegistroDiario);
         bAsistencia = findViewById(R.id.bAsistencia);
         bInventario = findViewById(R.id.bInventario);
@@ -236,5 +286,20 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity {
         usuario = findViewById(R.id.usuario);
         nombreUsuario = findViewById(R.id.nombreUsuario);
         ubicacion = findViewById(R.id.ubicacion);
+        comboTienda = findViewById(R.id.comboTienda);
+        cerrarSesion = findViewById(R.id.cerrarSesion);
     }
+
+    @Override
+    public void cargarComboAlmacen(String[] lista) {
+        adapterAlmacen = new ArrayAdapter<String>(InicioActivity.this, android.R.layout.simple_spinner_item, lista);
+        adapterAlmacen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        comboTienda.setAdapter(adapterAlmacen);
+    }
+
+    @Override
+    public void cargarMapAlmacen(HashMap<String, Almacen> map) {
+        mapAlmacen = map;
+    }
+
 }

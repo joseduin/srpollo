@@ -55,6 +55,7 @@ public class PedidosSodasDeserializador implements JsonDeserializer<PedidosSodas
         for (int i = 0; i < data.size(); i++) {
             JsonObject t = data.get(i).getAsJsonObject();
 
+            int id                      = t.get(JsonKeys.id).getAsInt();
             double cantidad_comprar     = t.get(JsonKeys.cantidad_comprar).getAsDouble();
             int unidades_por_paquete    = t.get(JsonKeys.unidades_por_paquete).getAsInt();
 
@@ -66,7 +67,7 @@ public class PedidosSodasDeserializador implements JsonDeserializer<PedidosSodas
             JsonObject dataUnid         = t.getAsJsonObject().getAsJsonObject(JsonKeys.unidad);
             String descripcionUnidad    = dataUnid.get(JsonKeys.descripcion).getAsString();
 
-            PedidoSoda pedidoSoda = new PedidoSoda(descripcion, cantidad_comprar, unidades_por_paquete, descripcionUnidad);
+            PedidoSoda pedidoSoda = new PedidoSoda(id, descripcion, cantidad_comprar, unidades_por_paquete, descripcionUnidad);
             pedidoSodas.add(pedidoSoda);
         }
         return pedidoSodas;

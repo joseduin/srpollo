@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import com.patricia.srpollo.R;
 import com.patricia.srpollo.modelo.ListaCompra;
 import com.patricia.srpollo.utils.Input;
+import com.patricia.srpollo.utils.Mensaje;
 
 import java.util.ArrayList;
 
@@ -24,10 +26,16 @@ public class AdaptadorListaCompra extends RecyclerView.Adapter<AdaptadorListaCom
 
     private ArrayList<ListaCompra> listaCompras;
     private Context context;
+    private CallbackInterface mCallback;
+
+    public interface CallbackInterface {
+        void onHandleSelection(int id, String atributo, double d);
+    }
 
     public AdaptadorListaCompra(ArrayList<ListaCompra> listaCompras, Context context){
         this.listaCompras = listaCompras;
         this.context = context;
+        this.mCallback = (CallbackInterface) context;
     }
 
     @Override
@@ -43,6 +51,14 @@ public class AdaptadorListaCompra extends RecyclerView.Adapter<AdaptadorListaCom
         holder.producto.setText(listaCompra.getProducto());
         holder.cantComprar.setText(listaCompra.getCantcomprar()+ " " + listaCompra.getUnidad());
 
+        if (listaCompra.getCantComprada() != 0.0) {
+            holder.cantComprada.setText( String.valueOf(listaCompra.getCantComprada()) );
+            holder.cantTotalComrada.setText( String.valueOf(listaCompra.getTotal()) );
+        }
+        if (listaCompra.getCosto() != 0.0) {
+            holder.costo.setText( String.valueOf(listaCompra.getCosto()) );
+        }
+
         holder.cantComprada.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -51,7 +67,18 @@ public class AdaptadorListaCompra extends RecyclerView.Adapter<AdaptadorListaCom
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                holder.cantTotalComrada.setText( String.valueOf( listaCompra.getCantPaquete() * Double.parseDouble(charSequence.toString()) ) );
+                if (!charSequence.toString().equals("")) {
+                    try {
+                        double comprado = Double.parseDouble(charSequence.toString());
+                        holder.cantTotalComrada.setText(String.valueOf(listaCompra.getCantPaquete() * comprado));
+                        if (mCallback != null) {
+                            mCallback.onHandleSelection(listaCompra.getId(), "cant_comprada", comprado);
+                            mCallback.onHandleSelection(listaCompra.getId(), "cant_total", listaCompra.getCantPaquete() * comprado);
+                        }
+                    } catch (Exception e) {
+                        Mensaje.mensajeCorto(context, "El formato valido es 0.0");
+                    }
+                }
             }
 
             @Override
@@ -59,7 +86,30 @@ public class AdaptadorListaCompra extends RecyclerView.Adapter<AdaptadorListaCom
 
             }
         });
+        holder.costo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().equals("")) {
+                    try {
+                        if (mCallback != null) {
+                            mCallback.onHandleSelection(listaCompra.getId(), "costo", Double.parseDouble(charSequence.toString()));
+                        }
+                    } catch (Exception e) {
+                        Mensaje.mensajeCorto(context, "El formato valido es 0.0");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
@@ -85,7 +135,8 @@ public class AdaptadorListaCompra extends RecyclerView.Adapter<AdaptadorListaCom
             costo = itemView.findViewById(R.id.costo);
 
             // Conf Inputs
-            cantComprada.setFilters(new InputFilter[] {Input.decimalEditText(0)} );
+            cantComprada.setFilters(new InputFilter[] {Input.decimalEditText(1)} );
+            costo.setFilters(new InputFilter[] {Input.decimalEditText(2)} );
         }
 
     }

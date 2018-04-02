@@ -30,8 +30,8 @@
                 <EditText
                     android:id="@+id/producto"
                     android:enabled="false"
+                    android:gravity="left"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp" />
             </LinearLayout>
@@ -52,7 +52,7 @@
                     android:id="@+id/cantComprar"
                     android:enabled="false"
                     android:layout_width="match_parent"
-                    android:gravity="center_horizontal"
+                    android:gravity="left"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp" />
             </LinearLayout>

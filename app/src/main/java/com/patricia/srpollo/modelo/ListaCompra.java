@@ -12,11 +12,13 @@ public class ListaCompra {
     private double cantPaquete;
     private String unidad;
 
+    private int idWeb;
     private double cantComprada;
     private double total;
     private double costo;
 
-    public ListaCompra(String producto, double cantcomprar, double cantPaquete, String unidad) {
+    public ListaCompra(int idWeb, String producto, double cantcomprar, double cantPaquete, String unidad) {
+        this.idWeb = idWeb;
         this.producto = producto;
         this.cantcomprar = cantcomprar;
         this.cantPaquete = cantPaquete;
@@ -24,6 +26,14 @@ public class ListaCompra {
     }
 
     public ListaCompra() {}
+
+    public int getIdWeb() {
+        return idWeb;
+    }
+
+    public void setIdWeb(int idWeb) {
+        this.idWeb = idWeb;
+    }
 
     public int getId() {
         return id;

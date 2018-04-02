@@ -7,10 +7,11 @@ package com.patricia.srpollo.bd;
 public final class ConstantesBaseDatos {
 
     public final static String DATABASE_NAME = "sr_pollo";
-    public final static int DATABASE_VERSION = 1;
+    public final static int DATABASE_VERSION = 2;
 
     public final static String TABLE_COMPRAS = "listado_compra";
     public final static String ID = "id";
+    public final static String ID_WEB = "id_web";
     public final static String PRODUCTO = "producto";
     public final static String CANT_COMPRAR = "cantcomprar";
     public final static String CANT_PAQUETE = "cantPaquete";

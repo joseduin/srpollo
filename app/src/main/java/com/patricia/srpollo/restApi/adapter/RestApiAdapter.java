@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.patricia.srpollo.modelo.Producto;
 import com.patricia.srpollo.restApi.ConstantesRestApi;
 import com.patricia.srpollo.restApi.EndPointsApi;
+import com.patricia.srpollo.restApi.desealizador.AlmacenDeserealizador;
 import com.patricia.srpollo.restApi.desealizador.ListaComprasDeserializador;
 import com.patricia.srpollo.restApi.desealizador.PedidosSodasDeserializador;
 import com.patricia.srpollo.restApi.desealizador.ProductoDeserealizador;
@@ -12,6 +13,7 @@ import com.patricia.srpollo.restApi.desealizador.RegistroDiarioDeserealizador;
 import com.patricia.srpollo.restApi.desealizador.SaboreDeserializador;
 import com.patricia.srpollo.restApi.desealizador.TrabajadorDeserializador;
 import com.patricia.srpollo.restApi.desealizador.TurnoDeserealizador;
+import com.patricia.srpollo.restApi.modelo.AlmacenResponse;
 import com.patricia.srpollo.restApi.modelo.ListaComprasResponse;
 import com.patricia.srpollo.restApi.modelo.PedidosSodasResponse;
 import com.patricia.srpollo.restApi.modelo.ProductoResponse;
@@ -76,6 +78,12 @@ public class RestApiAdapter {
     public Gson pedidosSodas(){
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(PedidosSodasResponse.class, new PedidosSodasDeserializador());
+        return gsonBuilder.create();
+    }
+
+    public Gson almacen(){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(AlmacenResponse.class, new AlmacenDeserealizador());
         return gsonBuilder.create();
     }
 

@@ -87,6 +87,7 @@ public final class Datos {
         add(new Asistencia(2, CARGO.get(1), false));
         add(new Asistencia(3, CARGO.get(2), false));
     }};
+    /*
     public static ArrayList<PedidoSoda> PEDIDO_SODA = new ArrayList() {{
         add(new PedidoSoda(SABORES.get(0), 6, 5,0,0));
         add(new PedidoSoda(SABORES.get(1), 6, 3,0,0));
@@ -99,6 +100,7 @@ public final class Datos {
         add(new ListaCompra(PRODUCTOS.get(6), 15, 0, 0));
 
     }};
+    */
     public static ArrayList<Faltante> FALTANTES = new ArrayList() {{
         add(new Faltante(PRODUCTOS.get(0), 10, 200.00, 2000.00));
         add(new Faltante(PRODUCTOS.get(3), 5, 20.00, 100.00));

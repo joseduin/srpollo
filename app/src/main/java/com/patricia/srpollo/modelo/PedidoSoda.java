@@ -12,11 +12,13 @@ public class PedidoSoda {
     private int unidades_por_paquete;
     private String unidad;
 
+    private int idWeb;
     private double cantComprada;
     private double total;
     private double costo;
 
-    public PedidoSoda(String sabore, double cantcomprar, int unidades_por_paquete, String unidad) {
+    public PedidoSoda(int idWeb, String sabore, double cantcomprar, int unidades_por_paquete, String unidad) {
+        this.idWeb = idWeb;
         this.sabore = sabore;
         this.cantcomprar = cantcomprar;
         this.unidades_por_paquete = unidades_por_paquete;
@@ -24,6 +26,14 @@ public class PedidoSoda {
     }
 
     public PedidoSoda() {}
+
+    public int getIdWeb() {
+        return idWeb;
+    }
+
+    public void setIdWeb(int idWeb) {
+        this.idWeb = idWeb;
+    }
 
     public int getId() {
         return id;
