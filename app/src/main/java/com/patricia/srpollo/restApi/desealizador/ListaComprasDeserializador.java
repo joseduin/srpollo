@@ -33,24 +33,16 @@ public class ListaComprasDeserializador implements JsonDeserializer<ListaCompras
         ListaComprasResponse response = gson.fromJson(obj.toString(), ListaComprasResponse.class);
         JsonObject data = obj.getAsJsonObject().getAsJsonObject(JsonKeys.data);
 
-        Log.d("GSON", "-1");
         JsonArray dataA  = data.getAsJsonObject().getAsJsonArray(JsonKeys.LISTA);
-        Log.d("GSON", "-2");
         JsonObject dataConf  = data.getAsJsonObject().getAsJsonObject(JsonKeys.CONFIGURACION);
-        Log.d("GSON", dataA.toString());
-        Log.d("GSON", "-3");
         response.setListaCompra(deserializadores(dataA));
-        Log.d("GSON", "-4");
         response.setConfiguracion(deserializadorConf(dataConf));
         return response;
     }
 
     private Configuracion deserializadorConf(JsonObject data) {
-        Log.d("GSON", "1");
         String soda_whatsaap = data.get(JsonKeys.soda_whatsaap).toString().contains("null") ? "" : data.get(JsonKeys.soda_whatsaap).getAsString();
-        Log.d("GSON", "2");
         String lista_whatsaap = data.get(JsonKeys.lista_whatsaap).toString().contains("null") ? "" : data.get(JsonKeys.lista_whatsaap).getAsString();
-        Log.d("GSON", "3");
         String numero_columna = data.get(JsonKeys.numero_columna).toString().contains("null") ? "" : data.get(JsonKeys.numero_columna).getAsString();
 
         Configuracion configuracion = new Configuracion(soda_whatsaap, lista_whatsaap);

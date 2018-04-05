@@ -6,13 +6,13 @@ package com.patricia.srpollo.modelo;
 
 public class PedidosSodasRequest {
 
-    private double cantidad_comprada;
-    private double total_unidades_compradas;
+    private int cantidad_comprada;
+    private int total_unidades_compradas;
     private double costo;
 
     public PedidosSodasRequest(double cantidad_comprada, double total_unidades_compradas, double costo) {
-        this.cantidad_comprada = cantidad_comprada;
-        this.total_unidades_compradas = total_unidades_compradas;
+        this.cantidad_comprada = (int) cantidad_comprada;
+        this.total_unidades_compradas = (int) total_unidades_compradas;
         this.costo = costo;
     }
 
@@ -24,7 +24,7 @@ public class PedidosSodasRequest {
         return cantidad_comprada;
     }
 
-    public void setCantidad_comprada(double cantidad_comprada) {
+    public void setCantidad_comprada(int cantidad_comprada) {
         this.cantidad_comprada = cantidad_comprada;
     }
 
@@ -32,7 +32,7 @@ public class PedidosSodasRequest {
         return total_unidades_compradas;
     }
 
-    public void setTotal_unidades_compradas(double total_unidades_compradas) {
+    public void setTotal_unidades_compradas(int total_unidades_compradas) {
         this.total_unidades_compradas = total_unidades_compradas;
     }
 

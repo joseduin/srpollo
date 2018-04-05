@@ -16,7 +16,7 @@ public interface IPedidosSodas {
 
     public void generarLayoutVertical();
 
-    public AdaptadorListaCompra crearAdaptador(ArrayList<PedidoSoda> list);
+    public AdaptadorPedidoSoda crearAdaptador(ArrayList<PedidoSoda> list);
 
     public void inicializarAdaptadorRV(AdaptadorPedidoSoda adapter);
 
