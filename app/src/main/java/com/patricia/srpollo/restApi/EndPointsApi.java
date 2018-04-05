@@ -6,6 +6,7 @@ import com.patricia.srpollo.modelo.RegistroDiarioItemRequest;
 import com.patricia.srpollo.modelo.RegistroDiarioRequest;
 import com.patricia.srpollo.modelo.TrabajadorRequest;
 import com.patricia.srpollo.restApi.modelo.AlmacenResponse;
+import com.patricia.srpollo.restApi.modelo.InfraccionResponss;
 import com.patricia.srpollo.restApi.modelo.ListaComprasResponse;
 import com.patricia.srpollo.restApi.modelo.OkResponse;
 import com.patricia.srpollo.restApi.modelo.PedidosSodasResponse;
@@ -77,5 +78,8 @@ public interface EndPointsApi {
 
     @GET(ConstantesRestApi.URL_ALMACEN)
     Call<AlmacenResponse> buscarAlmacenes();
+
+    @GET(ConstantesRestApi.URL_INFRACCION)
+    Call<InfraccionResponss> buscarInfracciones();
 
 }

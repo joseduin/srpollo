@@ -6,6 +6,7 @@ import com.patricia.srpollo.modelo.Producto;
 import com.patricia.srpollo.restApi.ConstantesRestApi;
 import com.patricia.srpollo.restApi.EndPointsApi;
 import com.patricia.srpollo.restApi.desealizador.AlmacenDeserealizador;
+import com.patricia.srpollo.restApi.desealizador.InfraccionDeserealizador;
 import com.patricia.srpollo.restApi.desealizador.ListaComprasDeserializador;
 import com.patricia.srpollo.restApi.desealizador.PedidosSodasDeserializador;
 import com.patricia.srpollo.restApi.desealizador.ProductoDeserealizador;
@@ -14,6 +15,7 @@ import com.patricia.srpollo.restApi.desealizador.SaboreDeserializador;
 import com.patricia.srpollo.restApi.desealizador.TrabajadorDeserializador;
 import com.patricia.srpollo.restApi.desealizador.TurnoDeserealizador;
 import com.patricia.srpollo.restApi.modelo.AlmacenResponse;
+import com.patricia.srpollo.restApi.modelo.InfraccionResponss;
 import com.patricia.srpollo.restApi.modelo.ListaComprasResponse;
 import com.patricia.srpollo.restApi.modelo.PedidosSodasResponse;
 import com.patricia.srpollo.restApi.modelo.ProductoResponse;
@@ -84,6 +86,12 @@ public class RestApiAdapter {
     public Gson almacen(){
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(AlmacenResponse.class, new AlmacenDeserealizador());
+        return gsonBuilder.create();
+    }
+
+    public Gson infraccion(){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(InfraccionResponss.class, new InfraccionDeserealizador());
         return gsonBuilder.create();
     }
 

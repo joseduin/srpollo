@@ -42,4 +42,7 @@ public class ConstantesRestApi {
     private static final String ALMACEN = "almacens";
     public static final String URL_ALMACEN = API + ALMACEN + JSON;
 
+    private static final String INFRACCION = "infraccions";
+    public static final String URL_INFRACCION = API + INFRACCION + JSON;
+
 }
