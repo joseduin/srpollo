@@ -87,6 +87,10 @@ public class ListaCompraActivity extends AppCompatActivity implements IBaseActiv
 
     @Override
     public AdaptadorListaCompra crearAdaptador(ArrayList<ListaCompra> list) {
+        if (list.isEmpty()) {
+            Mensaje.mensajeLargo(ListaCompraActivity.this, "Inventario al día");
+        }
+
         listaCompras = list;
         adapter = new AdaptadorListaCompra( listaCompras, ListaCompraActivity.this );
         return adapter;

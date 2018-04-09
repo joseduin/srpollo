@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.patricia.srpollo.datos_falsos.Datos;
@@ -24,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-
+// Mal login
     private EditText Usuario, contraseña;
     private Button buttonIniciar;
     private ProgressDialog progressDialog;
@@ -47,6 +50,29 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 login();
+            }
+        });
+
+        Usuario.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_NEXT) {
+                    contraseña.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        contraseña.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    login();
+                    return true;
+                }
+                return false;
             }
         });
     }
@@ -75,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TrabajadorResponse> call, Response<TrabajadorResponse> response) {
                 progressDialog.dismiss();
-                Log.d("RESPONSE", response.body().toString());
+
                 if (response.code() == 200) {
                     TrabajadorResponse res = response.body();
                     Trabajador trabajador = res.getTrabajador();

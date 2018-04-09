@@ -6,7 +6,9 @@ package com.patricia.srpollo.restApi;
 
 public class ConstantesRestApi {
 
+    //public static final String API  = "https://sr-pollo.herokuapp.com/";
     public static final String API  = "https://srpollo-joseduin.c9users.io/";
+
     private static final String JSON = ".json?movil=true";
     private static final String ID = "/{id}";
 
@@ -44,5 +46,18 @@ public class ConstantesRestApi {
 
     private static final String INFRACCION = "infraccions";
     public static final String URL_INFRACCION = API + INFRACCION + JSON;
+
+    private static final String TRABAJADOR_SANCIONES = "trabajador_sanciones";
+    public static final String URL_TRABAJADOR_SANCIONES = API + TRABAJADOR_SANCIONES + JSON;
+
+    private static final String SANCIONES = "sanciones";
+    public static final String URL_SANCIONES = API + SANCIONES + JSON;
+
+    private static final String TRABAJADOR_FALTANTES_POR_ASISTENCIA = "trabajadores-que-le-faltan-tomar-asistencia-en-el-dia-y-turno";
+    public static final String URL_TRABAJADOR_FALTANTES_POR_ASISTENCIA = API + TRABAJADOR_FALTANTES_POR_ASISTENCIA + JSON;
+
+    private static final String ASISTENCIA = "trabajador_asistencia";
+    public static final String URL_ASISTENCIA= API + ASISTENCIA + JSON;
+
 
 }

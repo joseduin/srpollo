@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.patricia.srpollo.ObservacionesAsistenciaActivity;
 import com.patricia.srpollo.R;
 import com.patricia.srpollo.modelo.Asistencia;
+import com.patricia.srpollo.modelo.Trabajador;
 import com.patricia.srpollo.utils.IrA;
+import com.patricia.srpollo.utils.Mensaje;
 
 import java.util.ArrayList;
 
@@ -22,13 +24,18 @@ import java.util.ArrayList;
 
 public class AdaptadorAsistencia extends RecyclerView.Adapter<AdaptadorAsistencia.AsisteciaViewHolder> {
 
-    ArrayList<Asistencia> asistencias;
+    private ArrayList<Trabajador> asistencias;
+    private Context context;
+    private CallbackInterface mCallback;
 
-    Context context;
+    public interface CallbackInterface {
+        void onHandleSelection(int id_trabajador);
+    }
 
-    public AdaptadorAsistencia(ArrayList<Asistencia> asistencias, Context context){
+    public AdaptadorAsistencia(ArrayList<Trabajador> asistencias, Context context){
         this.asistencias = asistencias;
         this.context = context;
+        this.mCallback = (CallbackInterface) context;
     }
 
     @Override
@@ -38,16 +45,30 @@ public class AdaptadorAsistencia extends RecyclerView.Adapter<AdaptadorAsistenci
         return pvh;    }
 
     @Override
-    public void onBindViewHolder(AsisteciaViewHolder holder, int position) {
-        Asistencia asistencia = asistencias.get(position);
+    public void onBindViewHolder(final AsisteciaViewHolder holder, int position) {
+        final Trabajador t = asistencias.get(position);
 
-        holder.textCargo.setText(asistencia.getCargo());
+        String name = t.getNombre() + " " + t.getApellido () + " (" + t.getUsuario() + ") - " + t.getCargo().getDescripcion();
+        holder.textCargo.setText( name );
         holder.bObservacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IrA.vista(context, ObservacionesAsistenciaActivity.class);
+                IrA.vista(context, ObservacionesAsistenciaActivity.class, t);
             }
-        });;
+        });
+        holder.bsend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.checkAsistio.isChecked()) {
+                    // callback
+                    if (mCallback != null) {
+                        mCallback.onHandleSelection(t.getId());
+                    }
+                } else {
+                    Mensaje.mensajeCorto(context, "Marque la asistencia del personal");
+                }
+            }
+        });
     }
 
     @Override
@@ -61,15 +82,16 @@ public class AdaptadorAsistencia extends RecyclerView.Adapter<AdaptadorAsistenci
     }
 
     public static class AsisteciaViewHolder extends RecyclerView.ViewHolder {
-        TextView textCargo;
-        CheckBox checkAsistio;
-        ImageButton bObservacion;
+        private TextView textCargo;
+        private CheckBox checkAsistio;
+        private ImageButton bObservacion, bsend;
 
         AsisteciaViewHolder(View itemView) {
             super(itemView);
             textCargo = itemView.findViewById(R.id.textCargo);
             checkAsistio = itemView.findViewById(R.id.checkAsistio);
             bObservacion = itemView.findViewById(R.id.bObservacion);
+            bsend = itemView.findViewById(R.id.bsend);
         }
     }
 

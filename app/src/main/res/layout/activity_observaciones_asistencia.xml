@@ -36,19 +36,18 @@
                 android:orientation="vertical">
 
                 <CheckBox
-                    android:id="@+id/checkBox3"
+                    android:id="@+id/checkPersonalEmpresa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Personal de la Empresa" />
 
-                <Spinner
-                    android:id="@+id/spinner_personal"
+                <AutoCompleteTextView
+                    android:id="@+id/personal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
-                    android:paddingTop="5dp" />
+                    android:inputType="textAutoComplete"
+                    android:imeOptions="actionDone"/>
 
             </LinearLayout>
 
@@ -61,20 +60,18 @@
                 android:paddingTop="20dp">
 
                 <CheckBox
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/checkPersonalExterna"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Persona Externa" />
 
                 <EditText
+                    android:id="@+id/personaExterna"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
-                    android:autoText="false"
                     android:hint="Nombre y Apellido"
-                    android:paddingTop="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -87,19 +84,18 @@
                 android:paddingTop="20dp">
 
                 <CheckBox
+                    android:id="@+id/checkSinReemplazo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Sin Reemplazo" />
 
                 <EditText
+                    android:id="@+id/sinReemplazo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
-                    android:autoText="false"
                     android:hint="Observaciones"
-                    android:paddingTop="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -107,7 +103,7 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/guardar"
             style="@style/botonSecundario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,5 +111,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
             android:text="Guardar" />
+
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -31,21 +31,31 @@ public class TrabajadorDeserializador implements JsonDeserializer<TrabajadorResp
         Gson gson = new Gson();
         JsonObject obj = new JsonObject();
         obj.add(JsonKeys.data, json);
+        Log.d("GSON", "1");
         TrabajadorResponse response = gson.fromJson(obj.toString(), TrabajadorResponse.class);
-        JsonObject data = obj.getAsJsonObject().getAsJsonObject(JsonKeys.data);
+        Log.d("GSON", "2");
 
-        boolean tieneError = data.toString().contains("error");
-        if (tieneError) {
-            response.setError(deserializarError(data));
+        if (json.isJsonArray()) {
+            Log.d("GSON A", obj.toString());
+            JsonArray data = obj.getAsJsonArray(JsonKeys.data);
+            Log.d("GSON", "-2");
+            response.setTrabajadors(deserializarTrbajadores(data));
+            Log.d("GSON", "-4");
         } else {
+            Log.d("GSON O", obj.toString());
 
-            if (data.isJsonArray()) {
-                JsonArray datas = data.getAsJsonObject().getAsJsonArray();
-                response.setTrabajadors(deserializarTrbajadores(datas));
+            JsonObject data = obj.getAsJsonObject().getAsJsonObject(JsonKeys.data);
+            Log.d("GSON", "3");
+            boolean tieneError = data.toString().contains("error");
+            if (tieneError) {
+                response.setError(deserializarError(data));
             } else {
+                Log.d("GSON", "-1");
+
                 response.setTrabajador(deserializarTrabajador(data));
             }
         }
+
         return response;
     }
 
@@ -57,7 +67,9 @@ public class TrabajadorDeserializador implements JsonDeserializer<TrabajadorResp
     private ArrayList<Trabajador> deserializarTrbajadores(JsonArray data) {
         ArrayList<Trabajador> trabajadors = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
+            Log.d("GSON", "-5");
             JsonObject t = data.get(i).getAsJsonObject();
+            Log.d("GSON", "-6");
             trabajadors.add(deserializarTrabajador(t));
         }
         return trabajadors;

@@ -1,9 +1,11 @@
 package com.patricia.srpollo.restApi;
 
+import com.patricia.srpollo.modelo.AsistenciaRequest;
 import com.patricia.srpollo.modelo.ListaCompraRequest;
 import com.patricia.srpollo.modelo.PedidosSodasRequest;
 import com.patricia.srpollo.modelo.RegistroDiarioItemRequest;
 import com.patricia.srpollo.modelo.RegistroDiarioRequest;
+import com.patricia.srpollo.modelo.SancionRequest;
 import com.patricia.srpollo.modelo.TrabajadorRequest;
 import com.patricia.srpollo.restApi.modelo.AlmacenResponse;
 import com.patricia.srpollo.restApi.modelo.InfraccionResponss;
@@ -81,5 +83,19 @@ public interface EndPointsApi {
 
     @GET(ConstantesRestApi.URL_INFRACCION)
     Call<InfraccionResponss> buscarInfracciones();
+
+    @GET(ConstantesRestApi.URL_TRABAJADOR_SANCIONES)
+    Call<TrabajadorResponse> buscarTrabajadorSanciones(@Query("almacen_id") int almacen_id);
+
+    @Headers("Content-Type: application/json")
+    @POST(ConstantesRestApi.URL_SANCIONES)
+    Call<RegistroDiarioResponse> sancionRequest(@Body SancionRequest request);
+
+    @GET(ConstantesRestApi.URL_TRABAJADOR_FALTANTES_POR_ASISTENCIA)
+    Call<TrabajadorResponse> buscarTrabajadorFaltantesPorAsistencia(@Query("almacen_id") int almacen_id);
+
+    @Headers("Content-Type: application/json")
+    @POST(ConstantesRestApi.URL_ASISTENCIA)
+    Call<OkResponse> asistenciaRequest(@Body AsistenciaRequest request);
 
 }

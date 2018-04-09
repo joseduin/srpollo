@@ -1,10 +1,13 @@
 package com.patricia.srpollo.modelo;
 
+import java.io.Serializable;
+
 /**
  * Created by Jose on 5/3/2018.
  */
 
-public class Trabajador {
+@SuppressWarnings("serial")
+public class Trabajador implements Serializable {
 
     private int id;
     private int rol;

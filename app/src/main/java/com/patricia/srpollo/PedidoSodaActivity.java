@@ -90,6 +90,10 @@ public class PedidoSodaActivity extends AppCompatActivity implements IBaseActivi
 
     @Override
     public AdaptadorPedidoSoda crearAdaptador(ArrayList<PedidoSoda> list) {
+        if (list.isEmpty()) {
+            Mensaje.mensajeLargo(PedidoSodaActivity.this, "Inventario al día");
+        }
+
         pedidoSodas = list;
         adapter = new AdaptadorPedidoSoda( pedidoSodas, PedidoSodaActivity.this );
         return adapter;
