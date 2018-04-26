@@ -57,7 +57,9 @@ public class ConstantesRestApi {
     public static final String URL_TRABAJADOR_FALTANTES_POR_ASISTENCIA = API + TRABAJADOR_FALTANTES_POR_ASISTENCIA + JSON;
 
     private static final String ASISTENCIA = "trabajador_asistencia";
-    public static final String URL_ASISTENCIA= API + ASISTENCIA + JSON;
+    public static final String URL_ASISTENCIA = API + ASISTENCIA + JSON;
 
+    private static final String OBSERVACION = "asistencia-con-observacion";
+    public static final String URL_OBSERVACION = API + OBSERVACION + JSON;
 
 }

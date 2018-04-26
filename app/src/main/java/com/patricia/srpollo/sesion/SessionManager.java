@@ -66,7 +66,7 @@ public class SessionManager {
         editor.putString(KEY_NOMBRE, trabajador.getNombre());
         editor.putString(KEY_APELLIDO, trabajador.getApellido());
         editor.putInt(KEY_ROL, trabajador.getRol());
-        editor.putString(KEY_ROL_DESC, trabajador.getRol() == 1 ? "Administrador" : "Trabajador");
+        editor.putString(KEY_ROL_DESC, trabajador.getRol() == 2 ? "Trabajador" : "Administrador");
         editor.putString(KEY_IDENTIFICACION, trabajador.getIdentificacion());
         editor.putInt(KEY_ALMACEN, trabajador.getAlmacen().getId());
         editor.putString(KEY_ALMACEN_DESC, trabajador.getAlmacen().getNombre());

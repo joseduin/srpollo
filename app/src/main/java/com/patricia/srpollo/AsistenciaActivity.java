@@ -136,7 +136,7 @@ public class AsistenciaActivity extends AppCompatActivity implements IBaseActivi
                     Mensaje.mensajeLargo(AsistenciaActivity.this, "Asistencia Guardada");
 
                     // Recargar la pantalla
-                    IrA.vista(AsistenciaActivity.this,AsistenciaActivity.class);
+                    IrA.vista(AsistenciaActivity.this, AsistenciaActivity.class);
                     AsistenciaActivity.this.finish();
                 }
             }

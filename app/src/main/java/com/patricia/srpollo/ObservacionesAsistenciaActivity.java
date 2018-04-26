@@ -15,16 +15,26 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.gson.Gson;
 import com.patricia.srpollo.datos_falsos.Datos;
 import com.patricia.srpollo.interfaz.IBaseActivity;
 import com.patricia.srpollo.interfaz.ITrabajador;
+import com.patricia.srpollo.modelo.ObservacionAsistenciaRequest;
 import com.patricia.srpollo.modelo.Trabajador;
 import com.patricia.srpollo.presentador.ITrabajadorPresentador;
 import com.patricia.srpollo.presentador.TrabajadorPresentador;
+import com.patricia.srpollo.restApi.EndPointsApi;
+import com.patricia.srpollo.restApi.adapter.RestApiAdapter;
+import com.patricia.srpollo.restApi.modelo.OkResponse;
 import com.patricia.srpollo.utils.Combo;
+import com.patricia.srpollo.utils.IrA;
 import com.patricia.srpollo.utils.Mensaje;
 
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ObservacionesAsistenciaActivity extends AppCompatActivity implements IBaseActivity, ITrabajador {
 
@@ -40,6 +50,7 @@ public class ObservacionesAsistenciaActivity extends AppCompatActivity implement
 
     private Trabajador TRABAJADOR_ASISTENCIA;
     private int PERSONAL = -1;
+    private String PERSONAL_STRING;
     private ProgressDialog progressDialog;
 
     @Override
@@ -72,7 +83,9 @@ public class ObservacionesAsistenciaActivity extends AppCompatActivity implement
             public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
                 Trabajador t = mapTrabajador.get(adapterTrabajador.getItem(pos));
                 Log.d("SELECT", t.getUsuario());
+                String name = t.getNombre() + " " + t.getApellido () + " (" + t.getUsuario() + ") - " + t.getCargo().getDescripcion();
                 PERSONAL = t.getId();
+                PERSONAL_STRING = name;
             }
         });
         guardar.setOnClickListener(new View.OnClickListener() {
@@ -81,28 +94,74 @@ public class ObservacionesAsistenciaActivity extends AppCompatActivity implement
                 enviarServidor();
             }
         });
+        personal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
+                Trabajador t = mapTrabajador.get(adapterTrabajador.getItem(pos));
+                PERSONAL = t.getId();
+            }
+        });
     }
 
     private void enviarServidor() {
+        int tipo = -1;
+        String reemplazo = "";
         if (checkPersonalEmpresa.isChecked()) {
             if (PERSONAL == -1) {
                 Mensaje.mensajeLargo(this, "Ingrese el Personal");
                 return;
             }
+            tipo = 1;
+            reemplazo = PERSONAL_STRING;
         }
         if (checkPersonalExterna.isChecked()) {
             if (personaExterna.getText().toString().trim().isEmpty()) {
                 Mensaje.mensajeLargo(this, "Ingrese el nombre y apellido del reemplazo");
                 return;
             }
+            tipo = 2;
+            reemplazo = personaExterna.getText().toString();
         }
         if (checkSinReemplazo.isChecked()) {
             if (sinReemplazo.getText().toString().trim().isEmpty()) {
                 Mensaje.mensajeLargo(this, "Ingrese una observación");
                 return;
             }
+            tipo = 3;
+            reemplazo = sinReemplazo.getText().toString();
         }
 
+        progressDialog = Mensaje.progressEnvio(ObservacionesAsistenciaActivity.this);
+        progressDialog.show();
+
+        RestApiAdapter restApiAdapter = new RestApiAdapter();
+        Gson gson = restApiAdapter.existeRegistro();
+        EndPointsApi endPointsApi = restApiAdapter.establecerConexionApi(gson);
+
+        ObservacionAsistenciaRequest request = new ObservacionAsistenciaRequest(TRABAJADOR_ASISTENCIA.getId(), reemplazo, tipo);
+        Call<OkResponse> call = endPointsApi.observacionRequest(request);
+        Log.d("RESPONSE", call.request().url().toString() + " ");
+
+        call.enqueue(new Callback<OkResponse>() {
+            @Override
+            public void onResponse(Call<OkResponse> call, Response<OkResponse> response) {
+                progressDialog.dismiss();
+                if (response.code() == 200) {
+                    Mensaje.mensajeLargo(ObservacionesAsistenciaActivity.this, "Asistencia Guardada");
+
+                    // Recargar la pantalla
+                    IrA.vista(ObservacionesAsistenciaActivity.this, AsistenciaActivity.class);
+                    ObservacionesAsistenciaActivity.this.finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OkResponse> call, Throwable t) {
+                progressDialog.dismiss();
+                Mensaje.mensajeCorto(ObservacionesAsistenciaActivity.this, Mensaje.ERROR_CONEXION);
+                Log.e("ERROR", t.toString() + " " + call.toString());
+            }
+        });
     }
 
     @Override

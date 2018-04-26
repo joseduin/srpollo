@@ -2,6 +2,7 @@ package com.patricia.srpollo.restApi;
 
 import com.patricia.srpollo.modelo.AsistenciaRequest;
 import com.patricia.srpollo.modelo.ListaCompraRequest;
+import com.patricia.srpollo.modelo.ObservacionAsistenciaRequest;
 import com.patricia.srpollo.modelo.PedidosSodasRequest;
 import com.patricia.srpollo.modelo.RegistroDiarioItemRequest;
 import com.patricia.srpollo.modelo.RegistroDiarioRequest;
@@ -97,5 +98,9 @@ public interface EndPointsApi {
     @Headers("Content-Type: application/json")
     @POST(ConstantesRestApi.URL_ASISTENCIA)
     Call<OkResponse> asistenciaRequest(@Body AsistenciaRequest request);
+
+    @Headers("Content-Type: application/json")
+    @POST(ConstantesRestApi.URL_OBSERVACION)
+    Call<OkResponse> observacionRequest(@Body ObservacionAsistenciaRequest request);
 
 }

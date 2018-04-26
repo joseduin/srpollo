@@ -94,6 +94,7 @@
                     <Button
                         android:id="@+id/bInventario"
                         style="@style/botonSecundario"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="20dp"
@@ -110,6 +111,7 @@
 
                     <Button
                         android:id="@+id/bFaltantes"
+                        android:visibility="gone"
                         style="@style/botonSecundario"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -149,9 +151,11 @@
                         android:text="Cerrar Sesión" />
 
                 </LinearLayout>
+
             </ScrollView>
 
         </RelativeLayout>
+
 </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

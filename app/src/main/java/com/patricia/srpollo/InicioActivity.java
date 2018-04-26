@@ -70,7 +70,7 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity, 
     private void setDatosToScreen() {
         final Trabajador t = session.getActivo();
         nombreUsuario.setText(t.getNombre() + " " + t.getApellido());
-        usuario.setText(t.getRol() == 1 ? "Administrador" : "Trabajador");
+        usuario.setText(t.getRol() == 2 ? "Trabajador" : "Administrador");
 
         if (t.getRol() == 1) {
             comboTienda.setVisibility(View.VISIBLE);
