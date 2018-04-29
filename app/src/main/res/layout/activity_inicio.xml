@@ -83,6 +83,15 @@
                         app:srcCompat="@drawable/logo_sr_pollo" />
 
                     <Button
+                        android:id="@+id/bTarea"
+                        style="@style/botonSecundario"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="1"
+                        android:text="Tarea Diaria" />
+
+                    <Button
                         android:id="@+id/bRegistroDiario"
                         style="@style/botonSecundario"
                         android:layout_width="match_parent"

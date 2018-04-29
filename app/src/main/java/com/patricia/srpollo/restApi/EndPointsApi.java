@@ -103,4 +103,6 @@ public interface EndPointsApi {
     @POST(ConstantesRestApi.URL_OBSERVACION)
     Call<OkResponse> observacionRequest(@Body ObservacionAsistenciaRequest request);
 
+    @GET(ConstantesRestApi.URL_EXISTE_REGISTRRO)
+    Call<RegistroDiarioResponse> buscarTarea(@Query("turno") int turno, @Query("cargo") int cargo);
 }

@@ -43,7 +43,7 @@ import retrofit2.Response;
 
 public class InicioActivity extends AppCompatActivity implements IBaseActivity, IAlmacen {
 
-    private Button bRegistroDiario, bInventario, bAsistencia, bFaltantes, bSanciones, bListadoSodas, bListadoProductos, cerrarSesion;
+    private Button bRegistroDiario, bInventario, bAsistencia, bFaltantes, bSanciones, bListadoSodas, bTarea, bListadoProductos, cerrarSesion;
     private TextView usuario, nombreUsuario, ubicacion;
     private Spinner comboTienda;
     private ProgressDialog progressDialog;
@@ -138,6 +138,12 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity, 
             @Override
             public void onClick(View view) {
                 IrA.vista(InicioActivity.this,SancionesActivity.class);
+            }
+        });
+        bTarea.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IrA.vista(InicioActivity.this,TareaActivity.class);
             }
         });
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
@@ -288,6 +294,7 @@ public class InicioActivity extends AppCompatActivity implements IBaseActivity, 
         ubicacion = findViewById(R.id.ubicacion);
         comboTienda = findViewById(R.id.comboTienda);
         cerrarSesion = findViewById(R.id.cerrarSesion);
+        bTarea = findViewById(R.id.bTarea);
     }
 
     @Override

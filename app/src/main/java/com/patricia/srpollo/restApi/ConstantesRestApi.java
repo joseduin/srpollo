@@ -62,4 +62,7 @@ public class ConstantesRestApi {
     private static final String OBSERVACION = "asistencia-con-observacion";
     public static final String URL_OBSERVACION = API + OBSERVACION + JSON;
 
+    private static final String TAREA = "tarea_trabajadors";
+    public static final String URL_TAREA = API + TAREA + JSON;
+
 }

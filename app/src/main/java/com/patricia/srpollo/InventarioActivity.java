@@ -29,7 +29,6 @@ public class InventarioActivity extends AppCompatActivity implements IBaseActivi
 
     private ArrayList<Inventario> inventarios = new ArrayList<>();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
